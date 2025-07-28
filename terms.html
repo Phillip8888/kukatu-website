@@ -89,6 +89,28 @@
         .terms-content strong {
             color: var(--text-primary);
         }
+        .consent-example {
+            background: var(--surface-variant);
+            padding: 20px;
+            border-radius: var(--radius-medium);
+            border: 1px solid var(--border);
+            margin: 24px 0;
+            text-align: center;
+        }
+        .consent-example p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+        .consent-example button {
+            background: var(--orange-primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius-small);
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+        }
     </style>
 </head>
 <body>
@@ -113,7 +135,7 @@
         <h1>Kukatu – Terms of Use, Privacy & Cookie Policy</h1>
         
         <div class="last-updated">
-            Last updated: June 2025
+            Last updated: January 2025
         </div>
 
         <p>Welcome to <strong>Kukatu</strong>, a mobile app owned and operated by <strong>Kukatu Ltd</strong>, registered in the United Kingdom. These Terms govern your use of our app, including its features, services, and community. By using Kukatu, you agree to this agreement.</p>
@@ -158,7 +180,15 @@
             <li>We may suspend or terminate accounts violating our policies</li>
         </ul>
 
-        <h2>6. AI Features</h2>
+        <h2>6. Messaging & Planner Tools</h2>
+        <ul>
+            <li>Messaging is intended for personal and book-related discussion</li>
+            <li>Voice messages and audio/video calls are available for book club communication</li>
+            <li>Planner features are provided as-is for your convenience</li>
+            <li>Kukatu Ltd is not responsible for missed events, data loss, or misuse of these tools</li>
+        </ul>
+
+        <h2>7. AI Features</h2>
         <p>Kukatu may use AI models to provide book suggestions, summaries, or productivity help.</p>
         <ul>
             <li>AI responses are for informational use only</li>
@@ -167,7 +197,25 @@
             <li>AI use may be limited or restricted in certain regions</li>
         </ul>
 
-        <h2>7. Privacy & Data Protection (UK GDPR + CCPA Compliant)</h2>
+        <h2>8. Affiliate Links, Promotions & Monetization</h2>
+        <p>Kukatu may include affiliate links or partner content.</p>
+        <ul>
+            <li>We may earn a small commission if you make purchases via these links</li>
+            <li>This does not affect your price or experience</li>
+            <li>Sponsored content or promoted books will be clearly marked</li>
+            <li>Kukatu Ltd may receive compensation from partners or publishers</li>
+        </ul>
+
+        <h2>9. E-Commerce & Merchandise</h2>
+        <p>We may offer branded products, digital themes, or merchandise.</p>
+        <ul>
+            <li>Ensure your information is correct when placing orders</li>
+            <li>All sales are final unless stated otherwise</li>
+            <li>Defective items must be reported within 14 days to <strong>info@kukatu.co.uk</strong></li>
+            <li>Kukatu Ltd is not liable for third-party vendor delays, damages, or losses</li>
+        </ul>
+
+        <h2>10. Privacy & Data Protection (UK GDPR + CCPA Compliant)</h2>
         <p>We collect limited personal data necessary to operate Kukatu.</p>
 
         <h3>What We Collect:</h3>
@@ -177,6 +225,9 @@
             <li>In-app activity (e.g., reading, messages, planner use)</li>
             <li>Optional data you enter (e.g., reviews, notes)</li>
             <li>Analytics and crash data</li>
+            <li>Device permissions usage (camera, microphone, photo library access)</li>
+            <li>Voice messages and call metadata (duration, participants)</li>
+            <li>Scanned book ISBN data</li>
         </ul>
 
         <h3>Why We Collect It:</h3>
@@ -187,6 +238,13 @@
             <li>To protect users and comply with legal duties</li>
         </ul>
 
+        <h3>How We Protect Your Data:</h3>
+        <ul>
+            <li>We use encryption, access controls, and best practices</li>
+            <li>We limit access to necessary staff and service providers</li>
+            <li>We only store data as long as needed for operations and law</li>
+        </ul>
+
         <h3>Your Rights:</h3>
         <p>Under <strong>UK GDPR</strong> and <strong>CCPA</strong>, you may:</p>
         <ul>
@@ -195,8 +253,169 @@
             <li>Withdraw consent or object to processing</li>
             <li>File a complaint with the <strong>ICO</strong> (UK) or relevant authority</li>
         </ul>
+        <p>To exercise your rights, contact: <strong>info@kukatu.co.uk</strong></p>
 
-        <h2>8. Cookies & Tracking (PECR + GDPR Compliance)</h2>
+        <h2>10.1. Device Permissions & Data Usage</h2>
+        <p>Kukatu requires certain device permissions to provide full functionality. You can manage these permissions in your device settings at any time.</p>
+
+        <h3>Camera Permission:</h3>
+        <ul>
+            <li><strong>Book Scanning</strong>: We use your camera to scan book barcodes (ISBN) for quick book lookup and addition to your library</li>
+            <li><strong>Video Calls</strong>: Enable face-to-face communication with your book club members</li>
+            <li>Camera data is processed locally and not stored unless you save a book or join a video call</li>
+        </ul>
+
+        <h3>Microphone Permission:</h3>
+        <ul>
+            <li><strong>Voice Messages</strong>: Record and send voice notes in book club chats</li>
+            <li><strong>Audio/Video Calls</strong>: Participate in voice and video calls with club members</li>
+            <li>Audio is transmitted in real-time during calls and stored only for voice messages you send</li>
+        </ul>
+
+        <h3>Photo Library Permission:</h3>
+        <ul>
+            <li><strong>Profile Pictures</strong>: Upload custom profile pictures</li>
+            <li><strong>Club Pictures</strong>: Set custom images for your book clubs</li>
+            <li><strong>Book Covers</strong>: Add custom book cover images</li>
+            <li>Photos are uploaded to our secure servers and associated with your account</li>
+        </ul>
+
+        <h3>Notification Permission:</h3>
+        <ul>
+            <li><strong>Chat Messages</strong>: Receive alerts for new messages in your book clubs</li>
+            <li><strong>Event Reminders</strong>: Get notified about upcoming book club meetings and reading deadlines</li>
+            <li><strong>Reading Goals</strong>: Receive motivational updates on your reading progress</li>
+            <li><strong>System Updates</strong>: Important app updates and announcements</li>
+            <li>You can customize notification preferences in app settings</li>
+        </ul>
+
+        <h3>Background Processing:</h3>
+        <ul>
+            <li><strong>Message Sync</strong>: Keep your messages up-to-date</li>
+            <li><strong>Notification Delivery</strong>: Ensure timely delivery of important alerts</li>
+            <li><strong>Call Availability</strong>: Receive incoming calls when app is in background</li>
+            <li>Background processing is optimized to minimize battery usage</li>
+        </ul>
+
+        <h3>Network Access:</h3>
+        <ul>
+            <li><strong>Real-time Messaging</strong>: Send and receive messages instantly</li>
+            <li><strong>Content Sync</strong>: Keep your books, clubs, and planner synchronized</li>
+            <li><strong>Media Upload/Download</strong>: Share images, voice messages, and book data</li>
+        </ul>
+
+        <p><strong>Important</strong>: All permissions are optional but some features may be limited without them. You maintain full control over these permissions through your device settings.</p>
+
+        <h2>11. Book Content & User Reviews</h2>
+
+        <h3>Content You Create:</h3>
+        <ul>
+            <li>Book reviews, ratings, and reading notes remain your intellectual property</li>
+            <li>By posting content, you grant Kukatu a worldwide, non-exclusive, royalty-free license to use, display, and distribute your content</li>
+            <li>You may delete your content at any time through the app</li>
+            <li>We may preserve deleted content for legal compliance or dispute resolution</li>
+        </ul>
+
+        <h3>Content Standards:</h3>
+        <ul>
+            <li>Reviews must be honest and based on actual reading experience</li>
+            <li>No spoilers without proper warnings</li>
+            <li>No plagiarized content from other review sites</li>
+            <li>Respect authors and other readers in your reviews</li>
+            <li>We reserve the right to remove reviews that violate our guidelines</li>
+        </ul>
+
+        <h2>12. DMCA & Copyright Policy</h2>
+        <p>Kukatu respects intellectual property rights. If you believe content infringes your copyright:</p>
+
+        <h3>To Report Infringement:</h3>
+        <p>Send a DMCA notice to <strong>dmca@kukatu.co.uk</strong> including:</p>
+        <ol>
+            <li>Your contact information</li>
+            <li>Description of the copyrighted work</li>
+            <li>URL or location of the infringing content</li>
+            <li>Statement of good faith belief</li>
+            <li>Statement of accuracy under penalty of perjury</li>
+            <li>Your physical or electronic signature</li>
+        </ol>
+
+        <h3>Counter-Notice:</h3>
+        <p>If your content was removed and you believe it was wrongly identified:</p>
+        <ul>
+            <li>Submit a counter-notice with the required legal elements</li>
+            <li>We will restore content after 10 business days unless the claimant files legal action</li>
+        </ul>
+
+        <h3>Repeat Infringers:</h3>
+        <p>Accounts with multiple valid copyright violations may be terminated.</p>
+
+        <h2>13. Data Retention & Deletion</h2>
+
+        <h3>Active Accounts:</h3>
+        <ul>
+            <li>Profile data retained while account is active</li>
+            <li>Messages retained for 2 years or until deleted by user</li>
+            <li>Reading activity retained indefinitely for recommendations</li>
+            <li>Voice messages retained for 90 days unless saved by recipient</li>
+        </ul>
+
+        <h3>After Account Deletion:</h3>
+        <ul>
+            <li>Personal data deleted within 30 days</li>
+            <li>Some data may be retained for up to 90 days in backups</li>
+            <li>Anonymized analytics data may be retained indefinitely</li>
+            <li>Data required for legal compliance retained as necessary</li>
+        </ul>
+
+        <h3>Your Rights:</h3>
+        <ul>
+            <li>Request data export before deletion</li>
+            <li>Some content (like messages to others) may remain visible</li>
+            <li>Deletion is permanent and cannot be reversed</li>
+        </ul>
+
+        <h2>14. Dispute Resolution & Arbitration</h2>
+
+        <h3>Informal Resolution:</h3>
+        <p>Before filing any legal claim, contact us at <strong>legal@kukatu.co.uk</strong> to attempt resolution.</p>
+
+        <h3>Binding Arbitration:</h3>
+        <ul>
+            <li>Disputes will be resolved through binding arbitration in London, UK</li>
+            <li>No class actions or jury trials</li>
+            <li>Each party bears their own costs unless arbitrator decides otherwise</li>
+            <li>Small claims court available for qualifying disputes</li>
+        </ul>
+
+        <h3>Exceptions:</h3>
+        <p>This arbitration agreement does not apply to:</p>
+        <ul>
+            <li>Intellectual property disputes</li>
+            <li>Injunctive relief requests</li>
+            <li>Small claims under £10,000</li>
+        </ul>
+
+        <h2>15. Third-Party Services</h2>
+        <p>Kukatu integrates with third-party services that have their own terms:</p>
+
+        <h3>Book Data Providers:</h3>
+        <ul>
+            <li>Open Library API for book information</li>
+            <li>Google Books API for cover images and metadata</li>
+            <li>ISBN databases for barcode scanning</li>
+        </ul>
+
+        <h3>Infrastructure Services:</h3>
+        <ul>
+            <li>Supabase for database and authentication</li>
+            <li>Cloud storage providers for media files</li>
+            <li>Analytics services for app improvement</li>
+        </ul>
+
+        <h3>Your Consent:</h3>
+        <p>By using features that rely on third-party services, you agree to their respective terms and privacy policies.</p>
+
+        <h2>16. Cookies & Tracking (PECR + GDPR Compliance)</h2>
         <p>We use cookies and similar technologies for:</p>
         <ul>
             <li>Login sessions</li>
@@ -204,9 +423,17 @@
             <li>Affiliate tracking</li>
             <li>Improving your experience</li>
         </ul>
-        <p>You will be asked to <strong>consent</strong> to cookies on first use (in compliance with PECR). You may also disable cookies via your device or browser settings.</p>
+        <p>You will be asked to <strong>consent</strong> to cookies on first use (in compliance with PECR).<br>
+        You may also disable cookies via your device or browser settings.</p>
 
-        <h2>9. Account Termination</h2>
+        <h2>17. Accessibility Commitment</h2>
+        <p>Kukatu aims to be accessible to all users. If you face accessibility issues (e.g., screen readers, navigation), contact <strong>info@kukatu.co.uk</strong> — we'll do our best to help or improve functionality.</p>
+
+        <h2>18. Export Restrictions & Global Use</h2>
+        <p>You may not use Kukatu in countries where its technology or services are restricted or prohibited by law.</p>
+        <p>Users are responsible for complying with their local laws, especially in jurisdictions with limitations on data storage or AI usage.</p>
+
+        <h2>19. Account Termination</h2>
         <p>You may delete your account at any time from the app settings.<br>
         We may suspend or delete accounts that:</p>
         <ul>
@@ -215,8 +442,9 @@
             <li>Endanger other users</li>
             <li>Breach local laws or third-party rights</li>
         </ul>
+        <p>Some data may be retained as required by legal or operational obligations.</p>
 
-        <h2>10. Limitation of Liability</h2>
+        <h2>20. Limitation of Liability</h2>
         <ul>
             <li>Kukatu Ltd is not liable for indirect, incidental, or consequential damages</li>
             <li>We provide the app "as-is" with no guarantee of availability or feature uptime</li>
@@ -224,20 +452,27 @@
             <li>We are not responsible for loss of data, personal choices based on AI suggestions, or third-party services</li>
         </ul>
 
-        <h2>11. Legal Jurisdiction</h2>
+        <h2>21. Legal Jurisdiction</h2>
         <p>This agreement is governed by the laws of <strong>England and Wales</strong>.<br>
         Any disputes shall be resolved in the courts of <strong>England and Wales</strong>.</p>
 
-        <h2>12. Changes to This Policy</h2>
+        <h2>22. Changes to This Policy</h2>
         <p>We may update this agreement from time to time.<br>
         Users will be notified of significant changes via in-app message or email.<br>
         Your continued use of Kukatu confirms your acceptance of any changes.</p>
 
         <div class="contact-box">
-            <h2>Contact Information</h2>
+            <h2>23. Contact Information</h2>
             <p><strong>Kukatu Ltd</strong><br>
             📧 info@kukatu.co.uk<br>
             🌐 kukatu.co.uk</p>
+        </div>
+
+        <div class="consent-example">
+            <h3>✅ In-App Consent Prompt Example</h3>
+            <p>By creating an account or continuing to use Kukatu, you agree to our<br>
+            <strong>Terms of Use, Privacy & Cookie Policy</strong>.</p>
+            <button>[✔️] <strong>I Agree and Continue</strong></button>
         </div>
     </main>
 
