@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join Club — Kukatu</title>
+  <meta name="apple-itunes-app" content="app-id=6745967029">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f8fafc;color:#1e293b;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+    .card{background:white;border-radius:24px;padding:48px 32px;max-width:400px;width:100%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.10)}
+    .logo{width:72px;height:72px;background:#FF6B35;border-radius:18px;margin:0 auto 24px;font-size:38px;display:flex;align-items:center;justify-content:center}
+    h1{font-size:26px;font-weight:700;margin-bottom:10px}
+    .sub{font-size:16px;color:#64748b;margin-bottom:36px;line-height:1.5}
+    .btn{display:block;background:#FF6B35;color:white;text-decoration:none;padding:15px 28px;border-radius:12px;font-weight:700;font-size:16px;width:100%;margin-bottom:12px;cursor:pointer;border:none;text-align:center}
+    .btn-outline{background:transparent;color:#FF6B35;border:2px solid #FF6B35}
+    .note{font-size:13px;color:#94a3b8;margin-top:20px;line-height:1.5}
+    #store-section{display:none}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">&#128218;</div>
+    <h1>You're invited!</h1>
+    <p class="sub">Someone shared a club with you on <strong>Kukatu</strong> — the book club app.</p>
+
+    <div id="open-section">
+      <a id="open-btn" class="btn" href="">Open in Kukatu</a>
+      <p class="note">If the button doesn't open Kukatu, try opening this link directly in Safari.</p>
+    </div>
+
+    <div id="store-section">
+      <a id="store-btn" class="btn" href="https://apps.apple.com/app/kukatu/id6745967029">Download Kukatu on the App Store</a>
+      <a id="retry-btn" class="btn btn-outline" href="">I already have the app</a>
+      <p class="note">Search "Kukatu" in the App Store if the button above doesn't open directly.</p>
+    </div>
+  </div>
+
+  <script>
+    // Read club ID from query string
+    var params = new URLSearchParams(window.location.search);
+    var clubId = params.get('club') || '';
+    // Sanitize: UUID-shaped only
+    if (!/^[a-zA-Z0-9\-]{1,36}$/.test(clubId)) clubId = '';
+
+    var appUrl = clubId ? 'bookclub://club/' + clubId : 'bookclub://';
+    var timer;
+
+    // Set hrefs
+    document.getElementById('open-btn').href = appUrl;
+    document.getElementById('retry-btn').href = appUrl;
+
+    // Update Smart App Banner app-argument
+    if (clubId) {
+      var banner = document.querySelector('meta[name="apple-itunes-app"]');
+      if (banner) {
+        banner.content = 'app-id=6745967029, app-argument=' + appUrl;
+      }
+    }
+
+    function showFallback() {
+      clearTimeout(timer);
+      document.getElementById('open-section').style.display = 'none';
+      document.getElementById('store-section').style.display = 'block';
+    }
+
+    // Clear timer when app opened (page hidden/blurred)
+    function onPageHidden() { clearTimeout(timer); }
+    window.addEventListener('pagehide', onPageHidden);
+    window.addEventListener('blur', onPageHidden);
+    window.addEventListener('visibilitychange', function() {
+      if (document.hidden) onPageHidden();
+    });
+
+    // Tap "Open in Kukatu" → start fallback countdown
+    document.getElementById('open-btn').addEventListener('click', function() {
+      if (!clubId) { showFallback(); return; }
+      timer = setTimeout(showFallback, 3000);
+    });
+
+    // "I already have the app" → go back to open section
+    document.getElementById('retry-btn').addEventListener('click', function() {
+      document.getElementById('store-section').style.display = 'none';
+      document.getElementById('open-section').style.display = 'block';
+      timer = setTimeout(showFallback, 3000);
+    });
+
+    // No club ID → skip straight to App Store
+    if (!clubId) {
+      document.getElementById('open-section').style.display = 'none';
+      document.getElementById('store-section').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
