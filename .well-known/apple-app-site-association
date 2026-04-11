@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "YY6K936V5B.com.kuku.kukubookclub",
+        "paths": ["/join/*", "/join"]
+      }
+    ]
+  }
+}
