@@ -1,95 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Join Club — Kukatu</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex,nofollow">
   <meta name="apple-itunes-app" content="app-id=6745967029">
+  <title>Club invitation — Kukatu</title>
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f8fafc;color:#1e293b;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
-    .card{background:white;border-radius:24px;padding:48px 32px;max-width:400px;width:100%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.10)}
-    .logo{width:72px;height:72px;background:#FF6B35;border-radius:18px;margin:0 auto 24px;font-size:38px;display:flex;align-items:center;justify-content:center}
-    h1{font-size:26px;font-weight:700;margin-bottom:10px}
-    .sub{font-size:16px;color:#64748b;margin-bottom:36px;line-height:1.5}
-    .btn{display:block;background:#FF6B35;color:white;text-decoration:none;padding:15px 28px;border-radius:12px;font-weight:700;font-size:16px;width:100%;margin-bottom:12px;cursor:pointer;border:none;text-align:center}
-    .btn-outline{background:transparent;color:#FF6B35;border:2px solid #FF6B35}
-    .note{font-size:13px;color:#94a3b8;margin-top:20px;line-height:1.5}
-    #store-section{display:none}
+    :root{color-scheme:light dark;--amber:#f4b942;--ink:#171717;--muted:#68645d;--card:#fff;--bg:#f7f3ea;--rule:#e6dfd2}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    .card{width:min(100%,440px);padding:28px;border:1px solid var(--rule);border-radius:22px;background:var(--card);box-shadow:0 18px 50px rgba(55,44,24,.09)}
+    .brand{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+    .art{width:92px;height:92px;margin:24px auto 18px;border-radius:18px;background:#f1eadc;display:grid;place-items:center;overflow:hidden;font-size:42px}
+    .art img{width:100%;height:100%;object-fit:cover}
+    h1{margin:0;text-align:center;font-size:28px;line-height:1.15}
+    .meta,.privacy,.help{text-align:center;color:var(--muted);line-height:1.5}
+    .privacy{font-size:14px;margin:8px 0 22px}
+    .button{display:block;width:100%;min-height:50px;margin-top:10px;padding:14px 18px;border:0;border-radius:13px;background:var(--amber);color:#17130b;text-decoration:none;text-align:center;font-size:16px;font-weight:750;cursor:pointer}
+    .button.secondary{background:transparent;border:1px solid var(--rule);color:var(--ink)}
+    .code-box{margin:22px 0 8px;padding:16px;border:1px solid var(--rule);border-radius:14px;text-align:center}
+    .code-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+    #code{display:block;margin:7px 0 10px;font:700 23px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em}
+    .copy{border:0;background:transparent;color:#8a5b00;text-decoration:underline;cursor:pointer;font-weight:650}
+    .help{font-size:13px;margin:18px 0 0}
+    #invite,#invalid{display:none}
+    @media (prefers-color-scheme:dark){:root{--ink:#f5f1e9;--muted:#aaa298;--card:#171717;--bg:#0d0d0d;--rule:#34302a}.copy{color:#f4b942}}
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="logo">&#128218;</div>
-    <h1>You're invited!</h1>
-    <p class="sub">Someone shared a club with you on <strong>Kukatu</strong> — the book club app.</p>
+  <main class="card">
+    <div class="brand">Kukatu · Private club</div>
+    <section id="checking">
+      <div class="art"><span aria-hidden="true">📚</span></div>
+      <h1>Checking your invitation…</h1>
+      <p class="meta">Kukatu is securely confirming the club details.</p>
+    </section>
+    <section id="invite">
+      <div class="art" id="art"><span aria-hidden="true">📚</span></div>
+      <h1 id="club-name">You’re invited to a book club</h1>
+      <p class="meta">Invitation from <strong id="organizer">a club organiser</strong></p>
+      <p class="privacy" id="privacy">This invitation securely unlocks a private Kukatu club.</p>
 
-    <div id="open-section">
-      <a id="open-btn" class="btn" href="">Open in Kukatu</a>
-      <p class="note">If the button doesn't open Kukatu, try opening this link directly in Safari.</p>
-    </div>
+      <a class="button" id="open-app" href="#">Open in Kukatu</a>
+      <a class="button secondary" href="https://apps.apple.com/app/kukatu/id6745967029">Install on iPhone or iPad</a>
+      <a class="button secondary" href="https://play.google.com/store/apps/details?id=com.kuku.kukubookclub">Install on Android</a>
 
-    <div id="store-section">
-      <a id="store-btn" class="btn" href="https://apps.apple.com/app/kukatu/id6745967029">Download Kukatu on the App Store</a>
-      <a id="retry-btn" class="btn btn-outline" href="">I already have the app</a>
-      <p class="note">Search "Kukatu" in the App Store if the button above doesn't open directly.</p>
-    </div>
-  </div>
-
+      <div class="code-box" id="code-box">
+        <div class="code-label">Installing first? Keep this code</div>
+        <span id="code">—</span>
+        <button class="copy" id="copy-code" type="button">Copy invitation code</button>
+      </div>
+      <p class="help">After installing, open Kukatu and choose “Have a club invite code?” Your invitation cannot be completed on this webpage.</p>
+    </section>
+    <section id="invalid">
+      <div class="art"><span aria-hidden="true">🔒</span></div>
+      <h1>This invitation link is incomplete</h1>
+      <p class="meta">Ask the club organiser to share a new Kukatu invitation.</p>
+      <a class="button secondary" href="/">Go to Kukatu</a>
+    </section>
+  </main>
   <script>
-    // Read club ID from query string
-    var params = new URLSearchParams(window.location.search);
-    var clubId = params.get('club') || '';
-    // Sanitize: UUID-shaped only
-    if (!/^[a-zA-Z0-9\-]{1,36}$/.test(clubId)) clubId = '';
-
-    var appUrl = clubId ? 'bookclub://club/' + clubId : 'bookclub://';
-    var timer;
-
-    // Set hrefs
-    document.getElementById('open-btn').href = appUrl;
-    document.getElementById('retry-btn').href = appUrl;
-
-    // Update Smart App Banner app-argument
-    if (clubId) {
-      var banner = document.querySelector('meta[name="apple-itunes-app"]');
-      if (banner) {
-        banner.content = 'app-id=6745967029, app-argument=' + appUrl;
+    (async function () {
+      "use strict";
+      var apiUrl = "https://xqpstouclpnsrssyyakj.supabase.co/rest/v1/rpc/get_club_invite_preview";
+      var apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhxcHN0b3VjbHBuc3Jzc3l5YWtqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4ODIzMTgsImV4cCI6MjA2NjQ1ODMxOH0.uI9aeZer4fZPVzcDZiqA9HM0GP9wtr5tvkMzfSViWSU";
+      var raw = new URLSearchParams(window.location.hash.slice(1));
+      var token = (raw.get("invite") || "").toLowerCase();
+      var code = (raw.get("code") || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+      var legacyClub = (new URLSearchParams(window.location.search).get("club") || "");
+      var validToken = /^[0-9a-f]{64}$/.test(token);
+      var validCode = /^[A-Z0-9]{10}$/.test(code);
+      var validLegacyClub = /^[0-9a-fA-F-]{36}$/.test(legacyClub);
+      function showInvalid(message) {
+        document.getElementById("checking").style.display = "none";
+        document.getElementById("invite").style.display = "none";
+        document.getElementById("invalid").style.display = "block";
+        if (message) {
+          document.querySelector("#invalid .meta").textContent = message;
+        }
       }
-    }
 
-    function showFallback() {
-      clearTimeout(timer);
-      document.getElementById('open-section').style.display = 'none';
-      document.getElementById('store-section').style.display = 'block';
-    }
+      function safeText(id, value, fallback) {
+        document.getElementById(id).textContent = value && value.length <= 120 ? value : fallback;
+      }
 
-    // Clear timer when app opened (page hidden/blurred)
-    function onPageHidden() { clearTimeout(timer); }
-    window.addEventListener('pagehide', onPageHidden);
-    window.addEventListener('blur', onPageHidden);
-    window.addEventListener('visibilitychange', function() {
-      if (document.hidden) onPageHidden();
-    });
+      if (validLegacyClub) {
+        document.getElementById("checking").style.display = "none";
+        document.getElementById("invite").style.display = "block";
+        safeText("club-name", null, "Open this club in Kukatu");
+        safeText("organizer", null, "a Kukatu reader");
+        document.getElementById("code-box").style.display = "none";
+        document.getElementById("privacy").textContent =
+          "Open Kukatu to view this public club.";
+        document.querySelector(".help").textContent =
+          "After installing Kukatu, return to this link to open the club.";
+        document.getElementById("open-app").href = "bookclub://club/" + legacyClub;
+        return;
+      }
 
-    // Tap "Open in Kukatu" → start fallback countdown
-    document.getElementById('open-btn').addEventListener('click', function() {
-      if (!clubId) { showFallback(); return; }
-      timer = setTimeout(showFallback, 3000);
-    });
+      if (!validToken || !validCode) {
+        showInvalid("Ask the club organiser to share a complete Kukatu invitation.");
+        return;
+      }
 
-    // "I already have the app" → go back to open section
-    document.getElementById('retry-btn').addEventListener('click', function() {
-      document.getElementById('store-section').style.display = 'none';
-      document.getElementById('open-section').style.display = 'block';
-      timer = setTimeout(showFallback, 3000);
-    });
+      var preview;
+      try {
+        var response = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "apikey": apiKey,
+            "Authorization": "Bearer " + apiKey,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({p_token: token, p_code: code}),
+          referrerPolicy: "no-referrer"
+        });
+        if (!response.ok) throw new Error("preview unavailable");
+        var rows = await response.json();
+        preview = Array.isArray(rows) ? rows[0] : rows;
+      } catch (_) {
+        showInvalid("Kukatu could not check this invitation. Check your connection and try again.");
+        return;
+      }
+      if (!preview || preview.status !== "valid") {
+        var messages = {
+          expired: "This invitation has expired. Ask the club organiser for a new one.",
+          revoked: "This invitation was revoked. Ask the club organiser for a new one.",
+          exhausted: "This invitation has reached its use limit. Ask the organiser for a new one."
+        };
+        showInvalid(messages[preview && preview.status] ||
+          "This invitation is invalid. Ask the club organiser for a new one.");
+        return;
+      }
 
-    // No club ID → skip straight to App Store
-    if (!clubId) {
-      document.getElementById('open-section').style.display = 'none';
-      document.getElementById('store-section').style.display = 'block';
-    }
+      document.getElementById("checking").style.display = "none";
+      document.getElementById("invite").style.display = "block";
+      safeText("club-name", preview.club_name, "You’re invited to a book club");
+      safeText("organizer", preview.organizer_name, "a club organiser");
+      document.getElementById("privacy").textContent = preview.is_private
+        ? "This invitation securely unlocks a private Kukatu club."
+        : "Use this invitation to join the club in Kukatu.";
+
+      var image = preview.club_image_url || "";
+      try {
+        var imageUrl = new URL(image);
+        if (imageUrl.protocol === "https:" &&
+            imageUrl.hostname === "xqpstouclpnsrssyyakj.supabase.co") {
+          var img = document.createElement("img");
+          img.alt = "";
+          img.referrerPolicy = "no-referrer";
+          img.src = imageUrl.toString();
+          var art = document.getElementById("art");
+          art.textContent = "";
+          art.appendChild(img);
+        }
+      } catch (_) {}
+
+      var formattedCode = code.slice(0, 5) + "-" + code.slice(5);
+      document.getElementById("code").textContent = formattedCode;
+      var appUrl = "bookclub://invite#invite=" + encodeURIComponent(token) +
+        "&code=" + encodeURIComponent(code);
+      document.getElementById("open-app").href = appUrl;
+      var banner = document.querySelector('meta[name="apple-itunes-app"]');
+      banner.content = "app-id=6745967029, app-argument=" + appUrl;
+
+      document.getElementById("copy-code").addEventListener("click", function () {
+        navigator.clipboard.writeText(formattedCode).then(function () {
+          document.getElementById("copy-code").textContent = "Copied";
+        }).catch(function () {
+          window.prompt("Copy this invitation code:", formattedCode);
+        });
+      });
+    }());
   </script>
 </body>
 </html>
