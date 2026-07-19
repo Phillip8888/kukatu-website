@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.kuku.kukubookclub",
+      "sha256_cert_fingerprints": [
+        "E0:0B:4B:49:E2:95:19:34:1B:E1:1E:31:8E:F7:79:6F:39:16:AD:45:75:3F:0F:28:92:4F:D0:75:DE:8C:94:2B"
+      ]
+    }
+  }
+]
