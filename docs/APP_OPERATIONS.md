@@ -9,6 +9,19 @@
 - HTTPS enforcement: enabled
 - Default branch: `main` (placeholder; requires deliberate reconciliation)
 
+## Public app listings
+
+Both mobile apps are publicly launched. Live store listings remain authoritative for
+download URLs and available versions; the values below are the ones the website links to.
+
+| Platform | Identifier | Store URL |
+| --- | --- | --- |
+| iOS | `6745967029` (bundle `com.kuku.kukubookclub`, team `YY6K936V5B`) | <https://apps.apple.com/gb/app/kukatu/id6745967029> |
+| Android | `com.kuku.kukubookclub` | <https://play.google.com/store/apps/details?id=com.kuku.kukubookclub> |
+
+Verified 2026-09-18: iOS listing live (minimum iOS 16.0, free); Google Play listing live.
+Do not hard-code app version numbers in website copy — they go stale between releases.
+
 ## Release states
 
 Treat committed/pushed website source, merged default-branch source, GitHub Pages build, custom-domain availability, and updated deep-link behavior as separate facts.

@@ -3,8 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kukatu - Your Book Community & Reading Companion</title>
-    <meta name="description" content="Kukatu helps users explore books, join communities, chat, and organize their reading lives.">
+    <title>Kukatu - Book Clubs, Made Fun | Free on iOS &amp; Android</title>
+    <meta name="description" content="Kukatu is the free book club app. Create a club, invite friends, vote on your next read, track every book, and climb the club leaderboard. Download now on iOS and Android.">
+    <link rel="canonical" href="https://www.kukatu.co.uk/">
+    <meta name="theme-color" content="#FF6B35">
+    <meta name="apple-itunes-app" content="app-id=6745967029">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Kukatu">
+    <meta property="og:title" content="Kukatu - Book Clubs, Made Fun">
+    <meta property="og:description" content="Create a club, invite friends, vote on your next read, and track every book together. Free on iOS and Android.">
+    <meta property="og:url" content="https://www.kukatu.co.uk/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Kukatu - Book Clubs, Made Fun">
+    <meta name="twitter:description" content="Create a club, invite friends, vote on your next read, and track every book together. Free on iOS and Android.">
+
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,13 +25,18 @@
         <nav class="navbar">
             <div class="nav-container">
                 <h1 class="logo">Kukatu</h1>
-                <ul class="nav-menu">
+                <ul class="nav-menu" id="nav-menu">
                     <li><a href="#about">About</a></li>
                     <li><a href="#features">Features</a></li>
                     <li><a href="#download">Download</a></li>
                     <li><a href="#contact">Contact</a></li>
                     <li><a href="terms.html">Terms</a></li>
                 </ul>
+                <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+                    <span class="nav-toggle-bar"></span>
+                    <span class="nav-toggle-bar"></span>
+                    <span class="nav-toggle-bar"></span>
+                </button>
             </div>
         </nav>
     </header>
@@ -26,19 +44,40 @@
     <main>
         <section class="hero">
             <div class="hero-content">
-                <h2>Your Book Community & Reading Companion</h2>
-                <p>Explore books, join communities, chat with fellow readers, and discover your next great read.</p>
-                <div class="cta-buttons">
-                    <a href="#download" class="btn btn-primary">Download App</a>
-                    <a href="#about" class="btn btn-secondary">Learn More</a>
+                <p class="hero-eyebrow">Now available on iOS &amp; Android</p>
+                <h2>Book clubs, made fun</h2>
+                <p>Create a club, invite your friends, vote on the next read, and track every book you finish — together. Free to download.</p>
+                <div class="store-buttons">
+                    <a class="store-btn" href="https://apps.apple.com/gb/app/kukatu/id6745967029" aria-label="Download Kukatu on the App Store">
+                        <svg class="store-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path fill="currentColor" d="M17.05 12.04c-.03-2.65 2.17-3.92 2.27-3.98-1.24-1.81-3.16-2.06-3.84-2.09-1.63-.17-3.19.96-4.02.96-.83 0-2.11-.94-3.47-.91-1.78.03-3.42 1.04-4.34 2.63-1.85 3.21-.47 7.96 1.33 10.56.88 1.27 1.93 2.7 3.31 2.65 1.33-.05 1.83-.86 3.44-.86 1.61 0 2.06.86 3.47.83 1.43-.02 2.34-1.3 3.22-2.58 1.01-1.48 1.43-2.91 1.45-2.99-.03-.01-2.79-1.07-2.82-4.22zM14.5 4.5c.73-.89 1.22-2.12 1.09-3.35-1.05.04-2.32.7-3.08 1.58-.68.78-1.27 2.03-1.11 3.23 1.17.09 2.37-.59 3.1-1.46z"/>
+                        </svg>
+                        <span class="store-btn-text">
+                            <span class="store-btn-small">Download on the</span>
+                            <span class="store-btn-large">App Store</span>
+                        </span>
+                    </a>
+                    <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.kuku.kukubookclub" aria-label="Get Kukatu on Google Play">
+                        <svg class="store-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path fill="#00D4FF" d="M3.06 1.29a1.5 1.5 0 0 0-.56 1.17v19.08c0 .46.21.88.56 1.17L13.76 12z"/>
+                            <path fill="#00F076" d="M4.7.79 17.06 8.24 13.76 12 3.06 1.29A1.5 1.5 0 0 1 4.7.79z"/>
+                            <path fill="#FF3A44" d="M3.06 22.71 13.76 12l3.3 3.32L4.7 22.77a1.5 1.5 0 0 1-1.64-.06z"/>
+                            <path fill="#FFC400" d="m17.06 8.24-3.3 3.76 3.3 3.32 3.82-2.3a1.44 1.44 0 0 0 0-2.48z"/>
+                        </svg>
+                        <span class="store-btn-text">
+                            <span class="store-btn-small">Get it on</span>
+                            <span class="store-btn-large">Google Play</span>
+                        </span>
+                    </a>
                 </div>
+                <p class="hero-note">Free · iPhone, iPad and Android</p>
             </div>
         </section>
 
         <section id="about" class="about">
             <div class="container">
                 <h2>About Kukatu</h2>
-                <p>Kukatu is your comprehensive reading companion that brings together passionate readers in one beautiful, simple app. Whether you're looking to discover your next great read, connect with like-minded book lovers, or organize your reading life, Kukatu has you covered.</p>
+                <p>Kukatu gives your book club everything it needs to read together — from picking the next book to celebrating who read the most. Start a new club or join one with friends, set a yearly Club Challenge, and let a bit of friendly competition push everyone to read more.</p>
             </div>
         </section>
 
@@ -47,28 +86,32 @@
                 <h2>Features</h2>
                 <div class="features-grid">
                     <div class="feature">
-                        <h3>📚 Book Discovery</h3>
-                        <p>Discover personalized book recommendations based on your reading preferences and community insights.</p>
+                        <h3>👥 Book Clubs, Reimagined</h3>
+                        <p>Create a club, invite friends, and set a Club Challenge — your group's yearly reading target to chase together.</p>
                     </div>
                     <div class="feature">
-                        <h3>👥 Reading Communities</h3>
-                        <p>Join book clubs and discussion groups with readers who share your interests.</p>
+                        <h3>📚 Track Your Reading</h3>
+                        <p>Log every book you finish. Browse millions of titles, scan barcodes, or import your Goodreads library in seconds.</p>
                     </div>
                     <div class="feature">
-                        <h3>💬 Chat & Connect</h3>
-                        <p>Connect with fellow readers through our integrated messaging system.</p>
+                        <h3>🗳️ Vote on the Next Book</h3>
+                        <p>No more endless debates. Propose books to the club, let everyone vote, and the best suggestion wins.</p>
                     </div>
                     <div class="feature">
-                        <h3>📅 Reading Planner</h3>
-                        <p>Organize your reading goals and track your progress with our built-in planner tools.</p>
+                        <h3>🏆 Leaderboards</h3>
+                        <p>Every book counts toward your score. Set a bolder personal goal to earn more points, and see where you stand in real time.</p>
                     </div>
                     <div class="feature">
-                        <h3>📖 Reading Insights</h3>
-                        <p>Track your reading progress, set goals, and gain insights into your reading habits and preferences.</p>
+                        <h3>📅 Events &amp; Meetups</h3>
+                        <p>Plan discussion nights, set reminders, and manage RSVPs — all inside the app.</p>
                     </div>
                     <div class="feature">
-                        <h3>🛒 Book Shopping</h3>
-                        <p>Discover and purchase books through our affiliate partnerships and merchandise store.</p>
+                        <h3>💬 Club Chat</h3>
+                        <p>Every club has its own group chat. Discuss plot twists, share quotes, and react in real time.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>🔎 Friends &amp; Discovery</h3>
+                        <p>Add friends, browse their shelves, and find your next favourite through the people whose taste you trust.</p>
                     </div>
                 </div>
             </div>
@@ -77,11 +120,31 @@
         <section id="download" class="download">
             <div class="container">
                 <h2>Download Kukatu</h2>
-                <p>Available soon on iOS and Android. Join our community of passionate readers today!</p>
-                <div class="download-buttons">
-                    <a href="#" class="btn btn-app">Coming Soon - iOS</a>
-                    <a href="#" class="btn btn-app">Coming Soon - Android</a>
+                <p>Out now on iOS and Android. Free to download, free to use — bring your book club along.</p>
+                <div class="store-buttons">
+                    <a class="store-btn" href="https://apps.apple.com/gb/app/kukatu/id6745967029" aria-label="Download Kukatu on the App Store">
+                        <svg class="store-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path fill="currentColor" d="M17.05 12.04c-.03-2.65 2.17-3.92 2.27-3.98-1.24-1.81-3.16-2.06-3.84-2.09-1.63-.17-3.19.96-4.02.96-.83 0-2.11-.94-3.47-.91-1.78.03-3.42 1.04-4.34 2.63-1.85 3.21-.47 7.96 1.33 10.56.88 1.27 1.93 2.7 3.31 2.65 1.33-.05 1.83-.86 3.44-.86 1.61 0 2.06.86 3.47.83 1.43-.02 2.34-1.3 3.22-2.58 1.01-1.48 1.43-2.91 1.45-2.99-.03-.01-2.79-1.07-2.82-4.22zM14.5 4.5c.73-.89 1.22-2.12 1.09-3.35-1.05.04-2.32.7-3.08 1.58-.68.78-1.27 2.03-1.11 3.23 1.17.09 2.37-.59 3.1-1.46z"/>
+                        </svg>
+                        <span class="store-btn-text">
+                            <span class="store-btn-small">Download on the</span>
+                            <span class="store-btn-large">App Store</span>
+                        </span>
+                    </a>
+                    <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.kuku.kukubookclub" aria-label="Get Kukatu on Google Play">
+                        <svg class="store-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path fill="#00D4FF" d="M3.06 1.29a1.5 1.5 0 0 0-.56 1.17v19.08c0 .46.21.88.56 1.17L13.76 12z"/>
+                            <path fill="#00F076" d="M4.7.79 17.06 8.24 13.76 12 3.06 1.29A1.5 1.5 0 0 1 4.7.79z"/>
+                            <path fill="#FF3A44" d="M3.06 22.71 13.76 12l3.3 3.32L4.7 22.77a1.5 1.5 0 0 1-1.64-.06z"/>
+                            <path fill="#FFC400" d="m17.06 8.24-3.3 3.76 3.3 3.32 3.82-2.3a1.44 1.44 0 0 0 0-2.48z"/>
+                        </svg>
+                        <span class="store-btn-text">
+                            <span class="store-btn-small">Get it on</span>
+                            <span class="store-btn-large">Google Play</span>
+                        </span>
+                    </a>
                 </div>
+                <p class="download-note">Requires iOS 16 or later. Also available for Android.</p>
             </div>
         </section>
 
@@ -90,7 +153,7 @@
                 <h2>Contact Us</h2>
                 <div class="contact-info">
                     <p><strong>Kukatu Ltd</strong></p>
-                    <p>📧 info@kukatu.co.uk</p>
+                    <p>📧 <a href="mailto:info@kukatu.co.uk">info@kukatu.co.uk</a></p>
                     <p>🌐 kukatu.co.uk</p>
                 </div>
             </div>
@@ -99,12 +162,13 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Kukatu Ltd. All rights reserved.</p>
+            <p>&copy; 2026 Kukatu Ltd. All rights reserved.</p>
             <nav class="footer-nav">
                 <a href="terms.html">Terms of Use</a>
                 <a href="terms.html">Privacy Policy</a>
             </nav>
         </div>
     </footer>
+    <script src="nav.js"></script>
 </body>
 </html>
