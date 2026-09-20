@@ -15,15 +15,21 @@ Writes terms.html in place and prints the effective date it published.
 from __future__ import annotations
 
 import html
+import os
 import pathlib
 import re
 import sys
 
+REPO = pathlib.Path(__file__).resolve().parent.parent
+# The app checkout is a sibling of this repo by default. Override with
+# KUKATU_APP, or pass the file as the first argument.
 DEFAULT_DART = pathlib.Path(
-    "/Users/sky/Documents/GitHub/Bookclub-release/project_0"
-    "/lib/legal/kukatu_terms.dart"
-)
-TERMS_HTML = pathlib.Path(__file__).resolve().parent.parent / "terms.html"
+    os.environ.get(
+        "KUKATU_APP",
+        REPO.parent / "Bookclub-release" / "project_0",
+    )
+) / "lib" / "legal" / "kukatu_terms.dart"
+TERMS_HTML = REPO / "terms.html"
 
 START = "<!-- BEGIN GENERATED TERMS -->"
 END = "<!-- END GENERATED TERMS -->"
@@ -52,6 +58,17 @@ def parse_sections(dart: str) -> tuple[str, list[tuple[str, str]]]:
     if not records:
         raise SystemExit("could not find any sections")
 
+    # The record regex is not Dart-aware: a body containing the characters
+    # that end a record would truncate it, and the result would be a legal
+    # page quietly missing text. Refuse to publish rather than publish a
+    # short version, and check the count against an independent signal.
+    declared = len(re.findall(r"^\s*title:", body, re.M))
+    if declared != len(records):
+        raise SystemExit(
+            f"parsed {len(records)} sections but the file declares "
+            f"{declared}; the record regex lost one. Check for a body "
+            "containing a bracket or an unusual string literal."
+        )
     sections: list[tuple[str, str]] = []
     for record in records:
         if "body:" not in record:
@@ -61,6 +78,25 @@ def parse_sections(dart: str) -> tuple[str, list[tuple[str, str]]]:
         text = "".join(unescape(m) for m in STRING.findall(body_src))
         text = text.replace("$kukatuTermsLastUpdated", last_updated)
         sections.append((title.strip(), text))
+    # The count check above cannot see truncation: if a body ends early, the
+    # scan simply resumes at the next record and the count still matches. So
+    # compare against something the record regex did not produce -- every
+    # string literal in the section list must survive into a parsed section.
+    # This is the check that catches a body containing a bracket.
+    region = body.split("\n];")[0]
+    for literal in STRING.findall(region):
+        text = unescape(literal).replace("$kukatuTermsLastUpdated", last_updated)
+        if not text.strip():
+            continue
+        if not any(text in t or text in b for t, b in sections):
+            raise SystemExit(
+                "a string literal in the terms file did not survive parsing, "
+                "so the published page would be missing text:\n  "
+                f"{text[:80]!r}\n"
+                "This usually means a body contains characters that end a "
+                "Dart record. Rephrase it, or teach the parser about it."
+            )
+
     return last_updated, sections
 
 
@@ -122,7 +158,29 @@ def main() -> None:
     _, tail = rest.split(END, 1)
     page = f"{head}{START}\n{render(last_updated, sections)}{END}{tail}"
     TERMS_HTML.write_text(page, encoding="utf-8")
-    print(f"terms.html regenerated: {len(sections)} sections, {last_updated}")
+
+    # Publishing legal text is not a place to trust a regex. Read the page
+    # back and confirm every heading and every substantive line of the source
+    # actually reached it.
+    written = TERMS_HTML.read_text(encoding="utf-8")
+    missing: list[str] = []
+    for title, body in sections:
+        if title and f"<h2>{html.escape(title)}</h2>" not in written:
+            missing.append(f"heading: {title}")
+        for line in body.split("\n"):
+            line = line.strip().lstrip("\u2022 ").strip()
+            if len(line) > 40 and html.escape(line) not in written:
+                missing.append(f"text: {line[:60]}...")
+    if missing:
+        raise SystemExit(
+            "terms.html is missing content that is in the source:\n  "
+            + "\n  ".join(missing)
+        )
+
+    print(
+        f"terms.html regenerated and verified: {len(sections)} sections, "
+        f"{last_updated}"
+    )
 
 
 if __name__ == "__main__":
