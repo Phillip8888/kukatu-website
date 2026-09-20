@@ -18,33 +18,38 @@
     h1{margin:0;text-align:center;font-size:28px;line-height:1.15}
     .meta,.privacy,.help{text-align:center;color:var(--muted);line-height:1.5}
     .privacy{font-size:14px;margin:8px 0 22px}
-    .button{display:block;width:100%;min-height:50px;margin-top:10px;padding:14px 18px;border:0;border-radius:13px;background:var(--amber);color:#17130b;text-decoration:none;text-align:center;font-size:16px;font-weight:750;cursor:pointer}
+    .button{display:block;width:100%;min-height:50px;margin-top:10px;padding:14px 18px;border:0;border-radius:13px;background:var(--amber);color:#17130b;text-decoration:none;text-align:center;font-size:16px;font-weight:750;cursor:pointer;font-family:inherit}
     .button.secondary{background:transparent;border:1px solid var(--rule);color:var(--ink)}
     .code-box{margin:22px 0 8px;padding:16px;border:1px solid var(--rule);border-radius:14px;text-align:center}
     .code-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
     #code{display:block;margin:7px 0 10px;font:700 23px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em}
-    .copy{border:0;background:transparent;color:#8a5b00;text-decoration:underline;cursor:pointer;font-weight:650}
+    .copy{border:0;background:transparent;color:#8a5b00;text-decoration:underline;cursor:pointer;font-weight:650;font-family:inherit;font-size:15px}
     .help{font-size:13px;margin:18px 0 0}
-    #invite,#invalid{display:none}
+    [hidden]{display:none !important}
+    .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
     @media (prefers-color-scheme:dark){:root{--ink:#f5f1e9;--muted:#aaa298;--card:#171717;--bg:#0d0d0d;--rule:#34302a}.copy{color:#f4b942}}
   </style>
 </head>
 <body>
   <main class="card">
-    <div class="brand">Kukatu · Private club</div>
+    <div class="brand">Kukatu · Club invitation</div>
+
+    <p id="status" class="sr-only" role="status" aria-live="polite"></p>
+
     <section id="checking">
       <div class="art"><span aria-hidden="true">📚</span></div>
       <h1>Checking your invitation…</h1>
-      <p class="meta">Kukatu is securely confirming the club details.</p>
+      <p class="meta">Kukatu is confirming the club details.</p>
     </section>
-    <section id="invite">
+
+    <section id="invite" hidden>
       <div class="art" id="art"><span aria-hidden="true">📚</span></div>
       <h1 id="club-name">You’re invited to a book club</h1>
-      <p class="meta">Invitation from <strong id="organizer">a club organiser</strong></p>
-      <p class="privacy" id="privacy">This invitation securely unlocks a private Kukatu club.</p>
+      <p class="meta" id="organizer-line">Invitation from <strong id="organizer">a club organiser</strong></p>
+      <p class="privacy" id="privacy">This invitation unlocks a private Kukatu club.</p>
 
       <a class="button" id="open-app" href="#">Open in Kukatu</a>
-      <a class="button secondary" href="https://apps.apple.com/app/kukatu/id6745967029">Install on iPhone or iPad</a>
+      <a class="button secondary" href="https://apps.apple.com/app/kukatu/id6745967029">Install on iPhone</a>
       <a class="button secondary" href="https://play.google.com/store/apps/details?id=com.kuku.kukubookclub">Install on Android</a>
 
       <div class="code-box" id="code-box">
@@ -52,127 +57,235 @@
         <span id="code">—</span>
         <button class="copy" id="copy-code" type="button">Copy invitation code</button>
       </div>
-      <p class="help">After installing, open Kukatu and choose “Have a club invite code?” Your invitation cannot be completed on this webpage.</p>
+      <p class="help" id="invite-help">After installing, open Kukatu and choose “Have a club invite code?” Your invitation cannot be completed on this webpage.</p>
     </section>
-    <section id="invalid">
+
+    <section id="invalid" hidden>
       <div class="art"><span aria-hidden="true">🔒</span></div>
-      <h1>This invitation link is incomplete</h1>
-      <p class="meta">Ask the club organiser to share a new Kukatu invitation.</p>
+      <h1 id="invalid-title">This invitation cannot be used</h1>
+      <p class="meta" id="invalid-message">Ask the club organiser to share a new Kukatu invitation.</p>
+      <a class="button secondary" href="/">Go to Kukatu</a>
+    </section>
+
+    <section id="error" hidden>
+      <div class="art"><span aria-hidden="true">📡</span></div>
+      <h1>Kukatu couldn’t check this invitation</h1>
+      <p class="meta" id="error-message">Check your connection and try again. Your invitation is probably still fine.</p>
+      <button class="button" id="retry" type="button">Try again</button>
       <a class="button secondary" href="/">Go to Kukatu</a>
     </section>
   </main>
+
   <script>
-    (async function () {
+    (function () {
       "use strict";
-      var apiUrl = "https://xqpstouclpnsrssyyakj.supabase.co/rest/v1/rpc/get_club_invite_preview";
-      var apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhxcHN0b3VjbHBuc3Jzc3l5YWtqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4ODIzMTgsImV4cCI6MjA2NjQ1ODMxOH0.uI9aeZer4fZPVzcDZiqA9HM0GP9wtr5tvkMzfSViWSU";
-      var raw = new URLSearchParams(window.location.hash.slice(1));
-      var token = (raw.get("invite") || "").toLowerCase();
-      var code = (raw.get("code") || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
-      var legacyClub = (new URLSearchParams(window.location.search).get("club") || "");
-      var validToken = /^[0-9a-f]{64}$/.test(token);
-      var validCode = /^[A-Z0-9]{10}$/.test(code);
-      var validLegacyClub = /^[0-9a-fA-F-]{36}$/.test(legacyClub);
-      function showInvalid(message) {
-        document.getElementById("checking").style.display = "none";
-        document.getElementById("invite").style.display = "none";
-        document.getElementById("invalid").style.display = "block";
-        if (message) {
-          document.querySelector("#invalid .meta").textContent = message;
-        }
+
+      var API_URL = "https://xqpstouclpnsrssyyakj.supabase.co/rest/v1/rpc/get_club_invite_preview";
+      var API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhxcHN0b3VjbHBuc3Jzc3l5YWtqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA4ODIzMTgsImV4cCI6MjA2NjQ1ODMxOH0.uI9aeZer4fZPVzcDZiqA9HM0GP9wtr5tvkMzfSViWSU";
+      var IMAGE_HOST = "xqpstouclpnsrssyyakj.supabase.co";
+      var TIMEOUT_MS = 10000;
+
+      var $ = function (id) { return document.getElementById(id); };
+
+      // The RPC matches on token OR code -- either alone identifies an
+      // invitation -- so the page must accept whichever one the link carries.
+      var fragment = new URLSearchParams(window.location.hash.slice(1));
+      var token = (fragment.get("invite") || fragment.get("token") || "").trim().toLowerCase();
+      var code = (fragment.get("code") || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+      var hasToken = /^[0-9a-f]{64}$/.test(token);
+      var hasCode = /^[A-Z0-9]{10}$/.test(code);
+      var hasCredential = hasToken || hasCode;
+
+      var legacyClub = new URLSearchParams(window.location.search).get("club") || "";
+      var hasLegacyClub =
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(legacyClub);
+
+      var SECTIONS = ["checking", "invite", "invalid", "error"];
+
+      function show(id, announcement) {
+        SECTIONS.forEach(function (name) { $(name).hidden = name !== id; });
+        $("status").textContent = announcement || "";
+      }
+
+      function showInvalid(title, message) {
+        $("invalid-title").textContent = title;
+        $("invalid-message").textContent = message;
+        show("invalid", title + " " + message);
+      }
+
+      function showError(message) {
+        $("error-message").textContent = message;
+        show("error", "Kukatu couldn’t check this invitation. " + message);
       }
 
       function safeText(id, value, fallback) {
-        document.getElementById(id).textContent = value && value.length <= 120 ? value : fallback;
+        $(id).textContent = value && value.length <= 120 ? value : fallback;
       }
 
-      if (validLegacyClub) {
-        document.getElementById("checking").style.display = "none";
-        document.getElementById("invite").style.display = "block";
+      function deepLink() {
+        var parts = [];
+        if (hasToken) parts.push("invite=" + encodeURIComponent(token));
+        if (hasCode) parts.push("code=" + encodeURIComponent(code));
+        return "bookclub://invite#" + parts.join("&");
+      }
+
+      function wireCopyButton(formatted) {
+        $("copy-code").addEventListener("click", function () {
+          var button = $("copy-code");
+          var clipboard = navigator.clipboard;
+          if (!clipboard || typeof clipboard.writeText !== "function") {
+            window.prompt("Copy this invitation code:", formatted);
+            return;
+          }
+          clipboard.writeText(formatted).then(function () {
+            button.textContent = "Copied";
+            $("status").textContent = "Invitation code copied.";
+          }).catch(function () {
+            window.prompt("Copy this invitation code:", formatted);
+          });
+        });
+      }
+
+      // --- Legacy ?club= links -------------------------------------------
+      // These carry no credential of any kind, so nothing about the club can
+      // be verified here. The page must not assert that the club exists, that
+      // it is public, or that the visitor may see it -- only the app can
+      // answer that. A real invitation always wins over this fallback.
+      function showLegacyClub() {
+        $("organizer-line").hidden = true;
+        $("code-box").hidden = true;
         safeText("club-name", null, "Open this club in Kukatu");
-        safeText("organizer", null, "a Kukatu reader");
-        document.getElementById("code-box").style.display = "none";
-        document.getElementById("privacy").textContent =
-          "Open Kukatu to view this public club.";
-        document.querySelector(".help").textContent =
-          "After installing Kukatu, return to this link to open the club.";
-        document.getElementById("open-app").href = "bookclub://club/" + legacyClub;
-        return;
+        $("privacy").textContent =
+          "This link points to a club in Kukatu. Open the app to see the club and whether you can join it.";
+        $("invite-help").textContent =
+          "If you don’t have Kukatu yet, install it and open this link again.";
+        $("open-app").href = "bookclub://club/" + encodeURIComponent(legacyClub);
+        show("invite", "Open this club in Kukatu.");
       }
 
-      if (!validToken || !validCode) {
-        showInvalid("Ask the club organiser to share a complete Kukatu invitation.");
-        return;
+      function showInvite(preview) {
+        safeText("club-name", preview.club_name, "You’re invited to a book club");
+        safeText("organizer", preview.organizer_name, "a club organiser");
+        $("privacy").textContent = preview.is_private
+          ? "This invitation unlocks a private Kukatu club."
+          : "Use this invitation to join the club in Kukatu.";
+
+        try {
+          var imageUrl = new URL(preview.club_image_url || "");
+          if (imageUrl.protocol === "https:" && imageUrl.hostname === IMAGE_HOST) {
+            var img = document.createElement("img");
+            img.alt = "";
+            img.referrerPolicy = "no-referrer";
+            img.src = imageUrl.toString();
+            var art = $("art");
+            art.textContent = "";
+            art.appendChild(img);
+          }
+        } catch (_) { /* no usable club image; keep the placeholder */ }
+
+        var appUrl = deepLink();
+        $("open-app").href = appUrl;
+        var banner = document.querySelector('meta[name="apple-itunes-app"]');
+        if (banner) banner.content = "app-id=6745967029, app-argument=" + appUrl;
+
+        if (hasCode) {
+          var formatted = code.slice(0, 5) + "-" + code.slice(5);
+          $("code").textContent = formatted;
+          wireCopyButton(formatted);
+        } else {
+          // A token-only link has no code to type in by hand.
+          $("code-box").hidden = true;
+          $("invite-help").textContent =
+            "Install Kukatu, then open this link again to accept the invitation.";
+        }
+
+        show("invite", "You have been invited to " + $("club-name").textContent + ".");
       }
 
-      var preview;
-      try {
-        var response = await fetch(apiUrl, {
+      // --- Preview lookup --------------------------------------------------
+      // Rejects distinguish "we could not ask" from "the answer was no": only
+      // the former offers Retry, because retrying a revoked invitation cannot
+      // change its status and saying otherwise wastes the visitor's time.
+      function fetchPreview() {
+        var controller = new AbortController();
+        var timer = setTimeout(function () { controller.abort(); }, TIMEOUT_MS);
+        var body = {};
+        if (hasToken) body.p_token = token;
+        if (hasCode) body.p_code = code;
+
+        return fetch(API_URL, {
           method: "POST",
           headers: {
-            "apikey": apiKey,
-            "Authorization": "Bearer " + apiKey,
+            "apikey": API_KEY,
+            "Authorization": "Bearer " + API_KEY,
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({p_token: token, p_code: code}),
-          referrerPolicy: "no-referrer"
+          body: JSON.stringify(body),
+          referrerPolicy: "no-referrer",
+          signal: controller.signal
+        }).then(function (response) {
+          if (!response.ok) {
+            var error = new Error("preview request failed");
+            error.retryable = true;
+            throw error;
+          }
+          return response.json();
+        }).then(function (rows) {
+          return Array.isArray(rows) ? rows[0] : rows;
+        }).finally(function () {
+          clearTimeout(timer);
         });
-        if (!response.ok) throw new Error("preview unavailable");
-        var rows = await response.json();
-        preview = Array.isArray(rows) ? rows[0] : rows;
-      } catch (_) {
-        showInvalid("Kukatu could not check this invitation. Check your connection and try again.");
-        return;
-      }
-      if (!preview || preview.status !== "valid") {
-        var messages = {
-          expired: "This invitation has expired. Ask the club organiser for a new one.",
-          revoked: "This invitation was revoked. Ask the club organiser for a new one.",
-          exhausted: "This invitation has reached its use limit. Ask the organiser for a new one."
-        };
-        showInvalid(messages[preview && preview.status] ||
-          "This invitation is invalid. Ask the club organiser for a new one.");
-        return;
       }
 
-      document.getElementById("checking").style.display = "none";
-      document.getElementById("invite").style.display = "block";
-      safeText("club-name", preview.club_name, "You’re invited to a book club");
-      safeText("organizer", preview.organizer_name, "a club organiser");
-      document.getElementById("privacy").textContent = preview.is_private
-        ? "This invitation securely unlocks a private Kukatu club."
-        : "Use this invitation to join the club in Kukatu.";
-
-      var image = preview.club_image_url || "";
-      try {
-        var imageUrl = new URL(image);
-        if (imageUrl.protocol === "https:" &&
-            imageUrl.hostname === "xqpstouclpnsrssyyakj.supabase.co") {
-          var img = document.createElement("img");
-          img.alt = "";
-          img.referrerPolicy = "no-referrer";
-          img.src = imageUrl.toString();
-          var art = document.getElementById("art");
-          art.textContent = "";
-          art.appendChild(img);
+      var TERMINAL = {
+        expired: {
+          title: "This invitation has expired",
+          message: "Ask the club organiser for a new Kukatu invitation."
+        },
+        revoked: {
+          title: "This invitation was revoked",
+          message: "Ask the club organiser for a new Kukatu invitation."
+        },
+        exhausted: {
+          title: "This invitation has been fully used",
+          message: "It reached its limit of joins. Ask the organiser for a new one."
+        },
+        invalid: {
+          title: "This invitation is not valid",
+          message: "Ask the club organiser to share a new Kukatu invitation."
         }
-      } catch (_) {}
+      };
 
-      var formattedCode = code.slice(0, 5) + "-" + code.slice(5);
-      document.getElementById("code").textContent = formattedCode;
-      var appUrl = "bookclub://invite#invite=" + encodeURIComponent(token) +
-        "&code=" + encodeURIComponent(code);
-      document.getElementById("open-app").href = appUrl;
-      var banner = document.querySelector('meta[name="apple-itunes-app"]');
-      banner.content = "app-id=6745967029, app-argument=" + appUrl;
-
-      document.getElementById("copy-code").addEventListener("click", function () {
-        navigator.clipboard.writeText(formattedCode).then(function () {
-          document.getElementById("copy-code").textContent = "Copied";
-        }).catch(function () {
-          window.prompt("Copy this invitation code:", formattedCode);
+      function attempt() {
+        show("checking", "Checking your invitation.");
+        fetchPreview().then(function (preview) {
+          if (preview && preview.status === "valid") {
+            showInvite(preview);
+            return;
+          }
+          var outcome = (preview && TERMINAL[preview.status]) || TERMINAL.invalid;
+          showInvalid(outcome.title, outcome.message);
+        }).catch(function (error) {
+          showError(
+            error && error.name === "AbortError"
+              ? "Kukatu took too long to respond. Your invitation is probably still fine."
+              : "Check your connection and try again. Your invitation is probably still fine."
+          );
         });
-      });
+      }
+
+      $("retry").addEventListener("click", attempt);
+
+      if (hasCredential) {
+        attempt();
+      } else if (hasLegacyClub) {
+        showLegacyClub();
+      } else {
+        showInvalid(
+          "This invitation link is incomplete",
+          "Ask the club organiser to share a complete Kukatu invitation."
+        );
+      }
     }());
   </script>
 </body>

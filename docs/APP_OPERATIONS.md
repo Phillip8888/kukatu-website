@@ -16,7 +16,7 @@ download URLs and available versions; the values below are the ones the website 
 
 | Platform | Identifier | Store URL |
 | --- | --- | --- |
-| iOS | `6745967029` (bundle `com.kuku.kukubookclub`, team `YY6K936V5B`) | <https://apps.apple.com/gb/app/kukatu/id6745967029> |
+| iOS | `6745967029` (bundle `com.kuku.kukubookclub`, team `YY6K936V5B`) | <https://apps.apple.com/app/kukatu/id6745967029> |
 | Android | `com.kuku.kukubookclub` | <https://play.google.com/store/apps/details?id=com.kuku.kukubookclub> |
 
 Verified 2026-09-18: iOS listing live (minimum iOS 16.0, free); Google Play listing live.
@@ -35,3 +35,10 @@ Treat committed/pushed website source, merged default-branch source, GitHub Page
 5. Merge only the intended website branch.
 6. Wait for Pages build and verify the public domain over HTTPS.
 7. Record the deployed commit and public verification time.
+
+## Website copy rules
+
+- App Store links must be locale-neutral (`apps.apple.com/app/...`). A `/gb/` or
+  `/us/` segment sends visitors in other territories to a storefront switch.
+- The iOS build is **iPhone-only** (`TARGETED_DEVICE_FAMILY = "1"`). Do not
+  claim iPad support in website copy, install buttons, or store metadata.
